@@ -30,7 +30,7 @@ public class CitaImpl implements CitaEjb {
         TypedQuery<Trabajador> trabajador = em.createNamedQuery("trabajador.get", Trabajador.class);
         Trabajador t=new Trabajador();
         for (Trabajador tr : trabajador.getResultList()){
-            if(tr.getNumSegSocial().equals(nss)){
+            if(tr.getNumSegSocial()==Integer.parseInt(nss)){
                 t = tr;
                 break;
             }
@@ -97,6 +97,7 @@ public class CitaImpl implements CitaEjb {
         u.setEstado(Enumerados.estadoUrgencia.ATENDIENDO);
         em.merge(u);
     }
+    @Override
     public void avanzaTratamiento(Urgencia u){
         u.setEstado(Enumerados.estadoUrgencia.TRATAMIENTO);
         em.merge(u);
