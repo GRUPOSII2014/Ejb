@@ -17,6 +17,7 @@ import javax.persistence.TypedQuery;
  * @author PyRoS
  */
 import Entidades.Persona;
+import javax.persistence.NoResultException;
 @Stateless
 public class PersonaImpl implements PersonaEjb {
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
@@ -44,6 +45,24 @@ public class PersonaImpl implements PersonaEjb {
     public List<Persona> todasPersonas() {
         TypedQuery<Persona> query = em.createNamedQuery("Persona.all", Persona.class);
         return query.getResultList();
+    }
+    
+    @Override
+    public Integer compruebaPersona(Integer nss, String passwd) {
+        Integer numSs = null;
+        Persona p = null;
+        
+        TypedQuery<Persona> query = em.createNamedQuery("Login.Comprueba", Persona.class);
+        query.setParameter("nss", nss);
+        query.setParameter("passwd", passwd);
+        
+        try {
+            p = query.getSingleResult();
+        } catch (NoResultException ex) {
+            
+        }
+        
+        return numSs;
     }
     
 }

@@ -23,4 +23,5 @@ public interface PersonaEjb {
     public Error editarPersona(Persona p);
     public Error eliminarPersona(Persona p);
     public List<Persona> todasPersonas();
+    public Integer compruebaPersona(Integer nss, String passwd);
 }
