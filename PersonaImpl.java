@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Ejb;
 
 import java.util.List;
@@ -18,11 +17,13 @@ import javax.persistence.TypedQuery;
  */
 import Entidades.Persona;
 import javax.persistence.NoResultException;
+
 @Stateless
 public class PersonaImpl implements PersonaEjb {
+
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     private EntityManager em;
-    
+
     @Override
     public void crearPersona(Persona p) {
         em.persist(p);
@@ -37,8 +38,11 @@ public class PersonaImpl implements PersonaEjb {
     @Override
     public Error eliminarPersona(Persona p) {
         em.detach(p);
-        if(em.contains(p)) return Error.ERROR;
-        else return Error.NO_ERROR;
+        if (em.contains(p)) {
+            return Error.ERROR;
+        } else {
+            return Error.NO_ERROR;
+        }
     }
 
     @Override
@@ -46,23 +50,21 @@ public class PersonaImpl implements PersonaEjb {
         TypedQuery<Persona> query = em.createNamedQuery("Persona.all", Persona.class);
         return query.getResultList();
     }
-    
+
     @Override
-    public Integer compruebaPersona(Integer nss, String passwd) {
-        Integer numSs = null;
-        Persona p = null;
-        
-        TypedQuery<Persona> query = em.createNamedQuery("Login.Comprueba", Persona.class);
-        query.setParameter("nss", nss);
-        query.setParameter("passwd", passwd);
-        
+    public Persona compruebaPersona(Integer nss, String passwd) {
+        Persona p;
+
         try {
-            p = query.getSingleResult();
+            p = em.createNamedQuery("Login.Comprueba", Persona.class)
+                    .setParameter("nss", nss)
+                    .setParameter("passwd", passwd)
+                    .getSingleResult();
         } catch (NoResultException ex) {
-            
+            p = null;
         }
-        
-        return numSs;
+
+        return p;
     }
-    
+
 }
