@@ -8,6 +8,7 @@ package Ejb;
 
 import Entidades.Alerta;
 import Entidades.HistoriaClinica;
+import Entidades.Mensaje;
 import Entidades.Persona;
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface PersonaEjb {
     public HistoriaClinica getHistoria(Integer nss);
     public Persona getPersona(Integer nss);
     public List<Alerta> allAlertas(Integer nss);
+    public List<Mensaje> allMensajes(Integer nss);
 }

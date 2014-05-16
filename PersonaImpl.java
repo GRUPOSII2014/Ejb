@@ -7,6 +7,7 @@ package Ejb;
 
 import Entidades.Alerta;
 import Entidades.HistoriaClinica;
+import Entidades.Mensaje;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,6 +19,8 @@ import javax.persistence.TypedQuery;
  * @author PyRoS
  */
 import Entidades.Persona;
+import Entidades.Trabajador;
+import java.util.Date;
 import javax.persistence.NoResultException;
 
 @Stateless
@@ -67,6 +70,19 @@ public class PersonaImpl implements PersonaEjb {
     
     @Override
     public List<Alerta> allAlertas(Integer nss) {
-        return getPersona(nss).getAlertas();
+        return em.createNamedQuery("listaAlertas", Alerta.class)
+                .setParameter("nss", nss)
+                .setParameter("hora", new Date())
+                .getResultList();
+    }
+    
+    @Override
+    public List<Mensaje> allMensajes(Integer nss) {
+        Trabajador t = em.createQuery("select t from Trabajador t where t.numSegSocial = :nss", Trabajador.class)
+                .setParameter("nss", nss)
+                .getSingleResult();
+        return em.createNamedQuery("listaMensajes", Mensaje.class)
+                .setParameter("nss", t)
+                .getResultList();
     }
 }
