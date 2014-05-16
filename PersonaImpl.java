@@ -67,11 +67,12 @@ public class PersonaImpl implements PersonaEjb {
         return p;
     }
 
+    
+    
     @Override
     public Persona getPersona(Integer nss) {
         return em.createNamedQuery("Persona", Persona.class)
                 .setParameter("nss", nss)
                 .getSingleResult();
     }
-
 }
