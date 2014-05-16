@@ -8,7 +8,7 @@ package Ejb;
 
 import Entidades.Hospital;
 import java.util.List;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Emilio
  */
-@Stateful
+@Stateless
 public class HospitalesEJB {
     
     @PersistenceContext(unitName = "HospitalEE-ejbPU")

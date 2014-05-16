@@ -18,6 +18,7 @@ import javax.persistence.TypedQuery;
  * @author PyRoS
  */
 import Entidades.Persona;
+import java.util.Date;
 import javax.persistence.NoResultException;
 
 @Stateless
@@ -67,6 +68,9 @@ public class PersonaImpl implements PersonaEjb {
     
     @Override
     public List<Alerta> allAlertas(Integer nss) {
-        return getPersona(nss).getAlertas();
+        return em.createNamedQuery("listaAlertas", Alerta.class)
+                .setParameter("nss", nss)
+                .setParameter("hora", new Date())
+                .getResultList();
     }
 }
