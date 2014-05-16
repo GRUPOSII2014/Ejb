@@ -7,6 +7,7 @@
 package Ejb;
 
 import Entidades.Alerta;
+import Entidades.Contacto;
 import Entidades.HistoriaClinica;
 import Entidades.Mensaje;
 import Entidades.Persona;
@@ -25,4 +26,5 @@ public interface PersonaEjb {
     public Persona getPersona(Integer nss);
     public List<Alerta> allAlertas(Integer nss);
     public List<Mensaje> allMensajes(Integer nss);
+    public void crearFormularioContacto(Contacto c);
 }

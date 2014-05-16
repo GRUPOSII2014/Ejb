@@ -6,6 +6,7 @@
 package Ejb;
 
 import Entidades.Alerta;
+import Entidades.Contacto;
 import Entidades.HistoriaClinica;
 import Entidades.Mensaje;
 import java.util.List;
@@ -84,5 +85,10 @@ public class PersonaImpl implements PersonaEjb {
         return em.createNamedQuery("listaMensajes", Mensaje.class)
                 .setParameter("nss", t)
                 .getResultList();
+    }
+
+    @Override
+    public void crearFormularioContacto(Contacto c) {
+        em.persist(c);
     }
 }
