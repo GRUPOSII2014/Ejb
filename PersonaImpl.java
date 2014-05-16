@@ -5,6 +5,7 @@
  */
 package Ejb;
 
+import Entidades.HistoriaClinica;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,22 +28,6 @@ public class PersonaImpl implements PersonaEjb {
     @Override
     public void crearPersona(Persona p) {
         em.persist(p);
-    }
-
-    @Override
-    public Error editarPersona(Persona p) {
-        em.merge(p);
-        return Error.NO_ERROR;
-    }
-
-    @Override
-    public Error eliminarPersona(Persona p) {
-        em.detach(p);
-        if (em.contains(p)) {
-            return Error.ERROR;
-        } else {
-            return Error.NO_ERROR;
-        }
     }
 
     @Override
@@ -72,6 +57,16 @@ public class PersonaImpl implements PersonaEjb {
         return em.createNamedQuery("Persona", Persona.class)
                 .setParameter("nss", nss)
                 .getSingleResult();
+    public HistoriaClinica getHistoria(Integer nss) {
+        Persona p;
+        try {
+            p = em.createNamedQuery("Persona.all", Persona.class)
+                    .setParameter("nss", nss)
+                    .getSingleResult();
+        } catch (NoResultException ex) {
+            p = null;
+        }
+        return p.getHistoriaclinica();
     }
 
 }
