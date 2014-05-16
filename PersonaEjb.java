@@ -6,6 +6,7 @@
 
 package Ejb;
 
+import Entidades.HistoriaClinica;
 import Entidades.Persona;
 import java.util.List;
 
@@ -14,15 +15,10 @@ import java.util.List;
  * @author PyRoS
  */
 public interface PersonaEjb {
-    public static enum Error {
-        NO_ERROR,
-        ERROR
-    };
     
     public void crearPersona(Persona p);
-    public Error editarPersona(Persona p);
-    public Error eliminarPersona(Persona p);
     public List<Persona> todasPersonas();
     public Persona compruebaPersona(Integer nss, String passwd);
+    public HistoriaClinica getHistoria(Integer nss);
     public Persona getPersona(Integer nss);
 }
