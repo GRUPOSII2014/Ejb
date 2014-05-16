@@ -6,6 +6,7 @@
 
 package Ejb;
 
+import Entidades.Alerta;
 import Entidades.HistoriaClinica;
 import Entidades.Persona;
 import java.util.List;
@@ -21,4 +22,5 @@ public interface PersonaEjb {
     public Persona compruebaPersona(Integer nss, String passwd);
     public HistoriaClinica getHistoria(Integer nss);
     public Persona getPersona(Integer nss);
+    public List<Alerta> allAlertas(Integer nss);
 }

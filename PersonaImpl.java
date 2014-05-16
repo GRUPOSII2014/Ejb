@@ -5,6 +5,7 @@
  */
 package Ejb;
 
+import Entidades.Alerta;
 import Entidades.HistoriaClinica;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -62,5 +63,10 @@ public class PersonaImpl implements PersonaEjb {
     @Override
     public HistoriaClinica getHistoria(Integer nss) {
         return getPersona(nss).getHistoriaclinica();
+    }
+    
+    @Override
+    public List<Alerta> allAlertas(Integer nss) {
+        return getPersona(nss).getAlertas();
     }
 }
