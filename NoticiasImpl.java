@@ -19,11 +19,12 @@ import javax.persistence.TypedQuery;
  */
 
 @Stateless
-public class NoticiasImpl {
+public class NoticiasImpl implements NoticiasEJB {
     
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     private EntityManager em;
     
+    @Override
     public List<Noticia> allNoticias() {
         TypedQuery<Noticia> query = em.createNamedQuery("Noticias", Noticia.class);
         return query.getResultList();
