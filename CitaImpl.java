@@ -54,9 +54,12 @@ public class CitaImpl implements CitaEjb {
 
     @Override
     public List<Cita> citasNoAtendidas(String nss) {
-        TypedQuery<Cita> query = em.createNamedQuery("cita.noAtendias", Cita.class);
-        query.setParameter("trabajador", trabajador(nss));
-        return query.getResultList();
+        TypedQuery<Cita> query = em.createNamedQuery("cita.all", Cita.class);
+        List<Cita> lista = new ArrayList<>();
+        for (Cita c: query.getResultList()){
+            if(!c.isAtendido()&&c.getTrabajador().getNumSegSocial().equals(Integer.parseInt(nss))) lista.add(c);
+        }
+        return lista;
     }
 
     @Override
