@@ -25,72 +25,12 @@ public class CitaImpl implements CitaEjb {
     
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     private EntityManager em;
-    
-    public Trabajador trabajador(String nss){
-        TypedQuery<Trabajador> trabajador = em.createNamedQuery("trabajador.get", Trabajador.class);
-        Trabajador t=new Trabajador();
-        for (Trabajador tr : trabajador.getResultList()){
-            if(tr.getNumSegSocial()==Integer.parseInt(nss)){
-                t = tr;
-                break;
-            }
-        }
-        return t;
-    }
-    
-    @Override
-    public List<Cita> allCitas(String nss) {
-        TypedQuery<Cita> query = em.createNamedQuery("cita.all", Cita.class);
-        query.setParameter("trabajador", trabajador(nss));
-        return query.getResultList();
-    }
 
     @Override
-    public List<Urgencia> allUrgencias(String nss) {
-        TypedQuery<Urgencia> query = em.createNamedQuery("urgencia.all", Urgencia.class);
-        query.setParameter("trabajador", trabajador(nss));
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Cita> citasNoAtendidas(String nss) {
-        TypedQuery<Cita> query = em.createNamedQuery("cita.all", Cita.class);
-        List<Cita> lista = new ArrayList<>();
-        for (Cita c: query.getResultList()){
-            if(!c.isAtendido()&&c.getTrabajador().getNumSegSocial().equals(Integer.parseInt(nss))) lista.add(c);
-        }
-        return lista;
-    }
-
-    @Override
-    public List<Cita> citasAtendidas(String nss) {
-        TypedQuery<Cita> query = em.createNamedQuery("cita.atendidas", Cita.class);
-        query.setParameter("trabajador", trabajador(nss));
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Urgencia> urgenciasEspera(String nss) {
-        TypedQuery<Urgencia> query = em.createNamedQuery("urgencia.all", Urgencia.class);
-        query.setParameter("trabajador", trabajador(nss));
+    public List<Urgencia> urgenciasEspera(Integer nss) {
         List<Urgencia> urgencias = new ArrayList<>();
-        for (Urgencia u : query.getResultList()) {
-            if (u.getEstado().equals(u.getEstado().ESPERA)) {
-                urgencias.add(u);
-            }
-        }
-        return urgencias;
-    }
-
-    @Override
-    public List<Urgencia> urgenciasAtendidas(String nss) {
-        TypedQuery<Urgencia> query = em.createNamedQuery("urgencia.atendida", Urgencia.class);
-        query.setParameter("trabajador", trabajador(nss));
-        List<Urgencia> urgencias = new ArrayList<>();
-        for (Urgencia u : query.getResultList()) {
-            if (u.getEstado().equals(u.getEstado().ESPERA)) {
-                urgencias.add(u);
-            }
+        for(Urgencia u : em.createNamedQuery("urgencia.trabajador", Urgencia.class).setParameter("nss", nss).getResultList()){
+            if(u.getEstado() == u.getEstado().ESPERA) urgencias.add(u);
         }
         return urgencias;
     }
@@ -100,9 +40,20 @@ public class CitaImpl implements CitaEjb {
         u.setEstado(Enumerados.estadoUrgencia.ATENDIENDO);
         em.merge(u);
     }
+    
     @Override
     public void avanzaTratamiento(Urgencia u){
         u.setEstado(Enumerados.estadoUrgencia.TRATAMIENTO);
         em.merge(u);
+    }
+
+    @Override
+    public List<Cita> citasNoAtendidas(Integer nss) {
+        List<Cita> citas = new ArrayList<>();
+        List<Cita> c2 = em.createNamedQuery("cita.trabajador", Cita.class).setParameter("nss", nss).getResultList();
+        for(Cita c : c2){
+            if(!c.isAtendido()) citas.add(c);
+        }
+        return citas;
     }
 }
