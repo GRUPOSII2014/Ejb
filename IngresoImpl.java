@@ -56,10 +56,7 @@ public class IngresoImpl implements IngresoEjb {
     }
     
     @Override
-    public void crearCita(Persona p, Cita c){
+    public void crearCita(Cita c){
         em.persist(c);
-        List<Cita> citas = p.getCitas();
-        citas.add(c);
-        c.setPersona(p);
     }
 }
