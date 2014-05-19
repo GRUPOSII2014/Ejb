@@ -8,6 +8,7 @@ package Ejb;
 
 import Entidades.Alerta;
 import Entidades.Contacto;
+import Entidades.Enfermero;
 import Entidades.HistoriaClinica;
 import Entidades.Mensaje;
 import Entidades.Persona;
@@ -27,6 +28,7 @@ public interface PersonaEjb {
     public void crearPersona(Persona p);
     public void actualizaPersona(Persona p);
     public List<Persona> todasPersonas();
+    public List<Enfermero> todosEnfermeros();
     public Persona compruebaPersona(Integer nss, String passwd);
     public HistoriaClinica getHistoria(Integer nss);
     public Persona getPersona(Integer nss);

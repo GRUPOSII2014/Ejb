@@ -11,6 +11,7 @@ import Entidades.Cita;
 import Entidades.Enumerados;
 import Entidades.Persona;
 import Entidades.Tratamiento;
+import Entidades.Urgencia;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -58,5 +59,10 @@ public class IngresoImpl implements IngresoEjb {
     @Override
     public void crearCita(Cita c){
         em.persist(c);
+    }
+    
+    @Override
+    public void crearUrgencia(Urgencia u){
+        em.persist(u);
     }
 }

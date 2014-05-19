@@ -7,22 +7,18 @@ package Ejb;
 
 import Entidades.Alerta;
 import Entidades.Contacto;
+import Entidades.Enfermero;
 import Entidades.HistoriaClinica;
 import Entidades.Mensaje;
-import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
-/**
- *
- * @author PyRoS
- */
 import Entidades.Persona;
 import Entidades.Trabajador;
 import java.util.Date;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Stateless
 public class PersonaImpl implements PersonaEjb {
@@ -38,6 +34,12 @@ public class PersonaImpl implements PersonaEjb {
     @Override
     public List<Persona> todasPersonas() {
         TypedQuery<Persona> query = em.createNamedQuery("Persona.all", Persona.class);
+        return query.getResultList();
+    }
+    
+    @Override
+    public List<Enfermero> todosEnfermeros(){
+        TypedQuery<Enfermero> query = em.createNamedQuery("Enfermero.all", Enfermero.class);
         return query.getResultList();
     }
 
