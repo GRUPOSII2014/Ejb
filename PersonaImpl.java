@@ -97,4 +97,12 @@ public class PersonaImpl implements PersonaEjb {
        em.merge(p);
        return Error.NO_ERROR;
     }
+
+    @Override
+    public Trabajador getTrabajador(Integer nss) {
+        return em.createQuery("select t from Trabajador t where t.numSegSocial = :nss", Trabajador.class)
+                .setParameter("nss", nss)
+                .getSingleResult();
+    }
+    
 }

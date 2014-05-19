@@ -7,6 +7,8 @@
 package Ejb;
 
 import Entidades.Alerta;
+import Entidades.Persona;
+import java.util.List;
 
 
 /**
@@ -19,5 +21,6 @@ public interface EventosEjb {
    
     
     public void crearEventos(Alerta a);
+    public List<Persona> getPersonas(String bus);
     
 }

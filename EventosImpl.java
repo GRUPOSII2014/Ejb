@@ -7,6 +7,11 @@
 package Ejb;
 
 import Entidades.Alerta;
+import Entidades.Persona;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,6 +19,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Ricardo
  */
+@Stateless
 public class EventosImpl implements EventosEjb {
 
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
@@ -25,6 +31,13 @@ public class EventosImpl implements EventosEjb {
        
         em.persist(a);
         
+    }
+
+    @Override
+    public List<Persona> getPersonas(String bus) {
+       List<Persona> personas = new ArrayList<>();
+       personas.addAll(em.createNamedQuery("Persona.completar", Persona.class).setParameter("buscado", "%"+bus+"%").getResultList());
+       return personas;
     }
     
 }
