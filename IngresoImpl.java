@@ -33,6 +33,8 @@ public class IngresoImpl implements IngresoEjb {
       return p;
       //  return em.createNamedQuery("Persona", Persona.class).
         //        setParameter("nss", nss).getSingleResult();
+        return em.createNamedQuery("Persona", Persona.class).
+                setParameter("nss", nss).getSingleResult();
     }
     
     @Override

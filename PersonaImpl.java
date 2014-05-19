@@ -91,4 +91,17 @@ public class PersonaImpl implements PersonaEjb {
     public void crearFormularioContacto(Contacto c) {
         em.persist(c);
     }
+
+    @Override
+    public void actualizaPersona(Persona p) {
+       em.merge(p);
+     }
+
+    @Override
+    public Trabajador getTrabajador(Integer nss) {
+        return em.createQuery("select t from Trabajador t where t.numSegSocial = :nss", Trabajador.class)
+                .setParameter("nss", nss)
+                .getSingleResult();
+    }
+    
 }

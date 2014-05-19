@@ -11,6 +11,7 @@ import Entidades.Contacto;
 import Entidades.HistoriaClinica;
 import Entidades.Mensaje;
 import Entidades.Persona;
+import Entidades.Trabajador;
 import java.util.List;
 
 /**
@@ -18,8 +19,13 @@ import java.util.List;
  * @author PyRoS
  */
 public interface PersonaEjb {
+    public static enum Error {
+        NO_ERROR
+    };
+    
     
     public void crearPersona(Persona p);
+    public void actualizaPersona(Persona p);
     public List<Persona> todasPersonas();
     public Persona compruebaPersona(Integer nss, String passwd);
     public HistoriaClinica getHistoria(Integer nss);
@@ -27,4 +33,5 @@ public interface PersonaEjb {
     public List<Alerta> allAlertas(Integer nss);
     public List<Mensaje> allMensajes(Integer nss);
     public void crearFormularioContacto(Contacto c);
+    public Trabajador getTrabajador(Integer nss);
 }
