@@ -91,4 +91,10 @@ public class PersonaImpl implements PersonaEjb {
     public void crearFormularioContacto(Contacto c) {
         em.persist(c);
     }
+
+    @Override
+    public Error actualizaPersona(Persona p) {
+       em.merge(p);
+       return Error.NO_ERROR;
+    }
 }

@@ -18,8 +18,13 @@ import java.util.List;
  * @author PyRoS
  */
 public interface PersonaEjb {
+    public static enum Error {
+        NO_ERROR
+    };
+    
     
     public void crearPersona(Persona p);
+    public Error actualizaPersona(Persona p);
     public List<Persona> todasPersonas();
     public Persona compruebaPersona(Integer nss, String passwd);
     public HistoriaClinica getHistoria(Integer nss);
