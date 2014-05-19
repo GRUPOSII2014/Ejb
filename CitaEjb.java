@@ -7,7 +7,6 @@
 package Ejb;
 
 import Entidades.Cita;
-import Entidades.Trabajador;
 import Entidades.Urgencia;
 import java.util.List;
 
@@ -16,11 +15,9 @@ import java.util.List;
  * @author PyRoS
  */
 public interface CitaEjb {
-
     public List<Cita> citasNoAtendidas(Integer nss);
     public List<Urgencia> urgenciasEspera(Integer nss);
     public void avanzaAtendiendo(Urgencia u);
     public void avanzaTratamiento(Urgencia u);
     public void crearCita (Cita c);
-
 }

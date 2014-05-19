@@ -6,8 +6,10 @@
 package Ejb;
 
 import Entidades.Cita;
+import Entidades.Enumerados;
 import Entidades.Trabajador;
 import Entidades.Urgencia;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,7 +22,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CitaImpl implements CitaEjb {
-
+    
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     private EntityManager em;
     
@@ -29,30 +31,28 @@ public class CitaImpl implements CitaEjb {
         return em.createNamedQuery("cita.trabajador",Cita.class).setParameter("nss", nss).getResultList();
     }
 
-
     @Override
-    public List<Cita> citasNoAtendidas(Trabajador t) {
-        TypedQuery<Cita> query = em.createNamedQuery("cita.noAtendias", Cita.class);
-        query.setParameter("trabajador", t);
-        return query.getResultList();
+    public List<Urgencia> urgenciasEspera(Integer nss) {
+        List<Urgencia> urgencias = new ArrayList<>();
+        for(Urgencia u : em.createNamedQuery("urgencia.trabajador", Urgencia.class).setParameter("nss", nss).getResultList()){
+            if(u.getEstado() == u.getEstado().ESPERA) urgencias.add(u);
+        }
+        return urgencias;
     }
 
     @Override
-    public List<Cita> citasAtendidas(Trabajador t) {
-        TypedQuery<Cita> query = em.createNamedQuery("cita.atendidas", Cita.class);
-        query.setParameter("trabajador", t);
-        return query.getResultList();
+    public void avanzaAtendiendo(Urgencia u) {
+        u.setEstado(Enumerados.estadoUrgencia.ATENDIENDO);
+        em.merge(u);
+    }
+    @Override
+    public void avanzaTratamiento(Urgencia u){
+        u.setEstado(Enumerados.estadoUrgencia.TRATAMIENTO);
+        em.merge(u);
     }
 
     @Override
-    public List<Urgencia> urgenciasEspera(Trabajador t) {
-        TypedQuery<Urgencia> query = em.createNamedQuery("urgencia.espera", Urgencia.class);
-        query.setParameter("trabajador", t);
-        return query.getResultList();
-    }
-    
     public void crearCita(Cita c) {
         em.persist(c);
     }
-
 }
