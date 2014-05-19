@@ -23,4 +23,5 @@ public interface CitaEjb {
     public List<Urgencia> urgenciasAtendidas(String nss);
     public void avanzaAtendiendo(Urgencia u);
     public void avanzaTratamiento(Urgencia u);
+    public void crearCita (Cita c);
 }

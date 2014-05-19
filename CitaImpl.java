@@ -102,4 +102,10 @@ public class CitaImpl implements CitaEjb {
         u.setEstado(Enumerados.estadoUrgencia.TRATAMIENTO);
         em.merge(u);
     }
+
+    @Override
+    public void crearCita(Cita c) {
+        em.persist(c);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
