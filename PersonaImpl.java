@@ -81,9 +81,7 @@ public class PersonaImpl implements PersonaEjb {
     
     @Override
     public List<Mensaje> allMensajes(Integer nss) {
-        Trabajador t = em.createQuery("select t from Trabajador t where t.numSegSocial = :nss", Trabajador.class)
-                .setParameter("nss", nss)
-                .getSingleResult();
+        Trabajador t = getTrabajador(nss);
         return em.createNamedQuery("listaMensajes", Mensaje.class)
                 .setParameter("nss", t)
                 .getResultList();
@@ -106,4 +104,22 @@ public class PersonaImpl implements PersonaEjb {
                 .getSingleResult();
     }
     
+    @Override
+    public Trabajador getTrabajador(String nombre) {
+        return em.createNamedQuery("trabajador.nombre", Trabajador.class)
+                .setParameter("nombre", nombre)
+                .getSingleResult();
+    }
+    
+    @Override
+    public void setMensaje(Mensaje m) {
+        em.persist(m);
+    }
+    
+    @Override
+    public List<String> getTrabajadores(String query) {
+        return em.createQuery("select p.nombre from Persona p where p.nombre like :buscado")
+                .setParameter("buscado", query+"%")
+                .getResultList();
+    }
 }

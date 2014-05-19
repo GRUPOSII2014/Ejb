@@ -8,8 +8,8 @@ package Ejb;
 
 import Entidades.Alerta;
 import Entidades.Persona;
+import Entidades.Trabajador;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
