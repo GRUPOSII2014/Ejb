@@ -29,20 +29,6 @@ public class CitaImpl implements CitaEjb {
         return em.createNamedQuery("cita.trabajador",Cita.class).setParameter("nss", nss).getResultList();
     }
 
-    @Override
-    public List<Cita> allCitas(Trabajador t) {
-        TypedQuery<Cita> query = em.createNamedQuery("cita.all", Cita.class);
-        query.setParameter("trabajador", t);
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Urgencia> allUrgencias(Trabajador t) {
-        TypedQuery<Urgencia> query = em.createNamedQuery("urgencia.all", Urgencia.class);
-        query.setParameter("trabajador", t);
-        return query.getResultList();
-    }
-<<<<<<< HEAD
 
     @Override
     public List<Cita> citasNoAtendidas(Trabajador t) {
@@ -51,8 +37,6 @@ public class CitaImpl implements CitaEjb {
         return query.getResultList();
     }
 
-=======
->>>>>>> ff62d8e512119522e382ecef0b91eacde0f56e1d
     @Override
     public List<Cita> citasAtendidas(Trabajador t) {
         TypedQuery<Cita> query = em.createNamedQuery("cita.atendidas", Cita.class);
@@ -61,22 +45,14 @@ public class CitaImpl implements CitaEjb {
     }
 
     @Override
-<<<<<<< HEAD
     public List<Urgencia> urgenciasEspera(Trabajador t) {
         TypedQuery<Urgencia> query = em.createNamedQuery("urgencia.espera", Urgencia.class);
         query.setParameter("trabajador", t);
         return query.getResultList();
-=======
+    }
+    
     public void crearCita(Cita c) {
         em.persist(c);
->>>>>>> ff62d8e512119522e382ecef0b91eacde0f56e1d
-    }
-
-    @Override
-    public List<Urgencia> urgenciasAtendidas(Trabajador t) {
-        TypedQuery<Urgencia> query = em.createNamedQuery("urgencia.atendida", Urgencia.class);
-        query.setParameter("trabajador", t);
-        return query.getResultList();
     }
 
 }
