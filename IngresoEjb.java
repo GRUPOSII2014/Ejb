@@ -21,5 +21,5 @@ public interface IngresoEjb {
     public void asignarCama(Persona p, Cama c);
     public Cama primeraLibre();
     public void terminarTratamiento(Tratamiento t);
-    public void crearCita(Persona p, Cita c);
+    public void crearCita(Cita c);
 }
