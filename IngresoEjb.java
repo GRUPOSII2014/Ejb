@@ -16,8 +16,7 @@ import Entidades.Tratamiento;
  * @author Fernando
  */
 public interface IngresoEjb {
-    
-    public Persona getPersona(Integer nss);
+
     public void asignarCama(Persona p, Cama c);
     public Cama primeraLibre();
     public void terminarTratamiento(Tratamiento t);

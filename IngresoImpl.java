@@ -26,12 +26,6 @@ public class IngresoImpl implements IngresoEjb {
 
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     private EntityManager em;
-
-    @Override
-    public Persona getPersona(Integer nss) {
-        return em.createNamedQuery("Persona", Persona.class).
-                setParameter("nss", nss).getSingleResult();
-    }
     
     @Override
     public void asignarCama(Persona p, Cama c){
@@ -50,13 +44,15 @@ public class IngresoImpl implements IngresoEjb {
     @Override
     public void terminarTratamiento(Tratamiento t){
         Persona p = t.getPersona();
-        List<Tratamiento> tratamientos = p.getTratamiento();
-        tratamientos.remove(t);
-        List<Cantidad> cantidades = t.getCantidades();
-        for (Cantidad c:cantidades){
-            em.remove(c);
-        }
-        em.remove(t);
+        Entidades.Informe inf = new Entidades.Informe();
+        inf.setObservaciones(t.getObservaciones());
+        inf.setTipo(Entidades.Enumerados.tipoInforme.TRATAMIENTOS);
+        inf.setTratamiento(t);
+        Entidades.HistoriaClinica hist = p.getHistoriaclinica();
+        List <Entidades.Informe> lista = hist.getInformes();
+        lista.add(inf);
+        hist.setInformes(lista);
+        p.setHistoriaclinica(hist);
     }
     
     @Override
