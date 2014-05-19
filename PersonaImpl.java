@@ -93,10 +93,9 @@ public class PersonaImpl implements PersonaEjb {
     }
 
     @Override
-    public Error actualizaPersona(Persona p) {
+    public void actualizaPersona(Persona p) {
        em.merge(p);
-       return Error.NO_ERROR;
-    }
+     }
 
     @Override
     public Trabajador getTrabajador(Integer nss) {

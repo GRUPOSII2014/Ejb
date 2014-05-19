@@ -25,7 +25,7 @@ public interface PersonaEjb {
     
     
     public void crearPersona(Persona p);
-    public Error actualizaPersona(Persona p);
+    public void actualizaPersona(Persona p);
     public List<Persona> todasPersonas();
     public Persona compruebaPersona(Integer nss, String passwd);
     public HistoriaClinica getHistoria(Integer nss);
