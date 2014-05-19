@@ -26,16 +26,6 @@ public class IngresoImpl implements IngresoEjb {
 
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     private EntityManager em;
-
-    @Override
-    public Persona getPersona(Integer nss) {
-      Persona p = em.find(Persona.class, nss);
-      return p;
-      //  return em.createNamedQuery("Persona", Persona.class).
-        //        setParameter("nss", nss).getSingleResult();
-        return em.createNamedQuery("Persona", Persona.class).
-                setParameter("nss", nss).getSingleResult();
-    }
     
     @Override
     public void asignarCama(Persona p, Cama c){

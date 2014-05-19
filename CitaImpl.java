@@ -25,6 +25,11 @@ public class CitaImpl implements CitaEjb {
     
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     private EntityManager em;
+    
+    @Override
+    public List<Cita> citasNoAtendidas(Integer nss) {
+        return em.createNamedQuery("cita.trabajador",Cita.class).setParameter("nss", nss).getResultList();
+    }
 
     @Override
     public List<Urgencia> urgenciasEspera(Integer nss) {
@@ -49,6 +54,5 @@ public class CitaImpl implements CitaEjb {
     @Override
     public void crearCita(Cita c) {
         em.persist(c);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
