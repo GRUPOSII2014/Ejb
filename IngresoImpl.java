@@ -9,6 +9,7 @@ import Entidades.Cama;
 import Entidades.Cantidad;
 import Entidades.Cita;
 import Entidades.Enumerados;
+import Entidades.Habitacion;
 import Entidades.Persona;
 import Entidades.Tratamiento;
 import Entidades.Urgencia;
@@ -37,11 +38,33 @@ public class IngresoImpl implements IngresoEjb {
     }
     
     @Override
-    public Cama primeraLibre(){
+    public Cama primeraLibre(Persona p){
         TypedQuery<Cama> query = em.createNamedQuery("Cama.all",Cama.class);
         List<Cama> camas= query.getResultList();
         
-        return camas.get(0);
+        String sexo = p.getSexo();
+        
+        for (Cama c:camas){
+            if (puede(sexo,c))
+                return c;
+        }
+        return null;
+    }
+    
+    private boolean puede(String sexo, Cama c){
+        if (c.getPaciente()!=null)
+            return false;
+        Habitacion h = c.getHabitacion();
+        List<Cama> camas = new ArrayList<>();
+        camas.addAll(h.getCamas());
+        for (Cama c1:camas){
+            Persona p = c1.getPaciente();
+            if (p!=null && !p.getSexo().equals(sexo))
+                return false;
+        }
+        
+        return true;
+        
     }
     
     @Override

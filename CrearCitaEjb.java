@@ -7,6 +7,7 @@
 package Ejb;
 
 import Entidades.Medico;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,8 +17,6 @@ import java.util.List;
 
 public interface CrearCitaEjb {
    
-    public List<Medico> getMedicos();
-    public void asignaCita(Medico m);
-    public void crearCita ();
+    public Date asignaCita(Medico m);
     
 }

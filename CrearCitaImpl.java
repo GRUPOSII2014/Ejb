@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -21,22 +22,10 @@ import javax.persistence.PersistenceContext;
  *
  * @author Angel
  */
-
+@Stateless
 public class CrearCitaImpl implements CrearCitaEjb{
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     EntityManager em;
-    
-
-    @Override
-    public void crearCita() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Medico> getMedicos() {
-        return em.createNamedQuery("Medico.all", Medico.class).getResultList();
-    }
-
     
     public String obtenerDia() {
         GregorianCalendar cal = new GregorianCalendar();
@@ -88,20 +77,29 @@ public class CrearCitaImpl implements CrearCitaEjb{
     
     public String siguienteDia(String dia){
         int res = -1;
-        if(dia.equals("Domigno"))
-            res = 1;
-        else if (dia.equals("Lunes"))
-            res = 2;
-        else if (dia.equals("Martes"))
-            res = 3;
-        else if (dia.equals("Miercoles"))
-            res = 4;
-        else if (dia.equals("Jueves"))
-            res = 5;
-        else if (dia.equals("Viernes"))
-            res = 6;
-        else if (dia.equals("Sabado"))
-            res = 7;
+        switch (dia) {
+            case "Domigno":
+                res = 1;
+                break;
+            case "Lunes":
+                res = 2;
+                break;
+            case "Martes":
+                res = 3;
+                break;
+            case "Miercoles":
+                res = 4;
+                break;
+            case "Jueves":
+                res = 5;
+                break;
+            case "Viernes":
+                res = 6;
+                break;
+            case "Sabado":
+                res = 7;
+                break;
+        }
         
         res = ((res+1)%7)+1;
         switch (res) {
@@ -193,7 +191,7 @@ public class CrearCitaImpl implements CrearCitaEjb{
     }
     
     @Override
-    public void asignaCita(Medico m) {
+    public Date asignaCita(Medico m) {
        List<Cita> citas = new ArrayList<>();
        Calendar hoy = Calendar.getInstance();
        Calendar horaCita = Calendar.getInstance();
@@ -224,6 +222,7 @@ public class CrearCitaImpl implements CrearCitaEjb{
             horaCita.setTime(siguienteHora(c).getTime());
         }
      
+        return horaCita.getTime();
     }
     
 }
