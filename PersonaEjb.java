@@ -13,7 +13,6 @@ import Entidades.Mensaje;
 import Entidades.Persona;
 import Entidades.Enfermero;
 import Entidades.Medico;
-import Entidades.Admin;
 import Entidades.Trabajador;
 import Entidades.TrabajadoresHospital;
 import java.util.List;
@@ -32,6 +31,7 @@ public interface PersonaEjb {
     
     
     public void crearPersona(Persona p);
+    public Medico getMedico(Integer nss);
     public Error compruebaPersona(Persona p);
     public Error compruebaMedico(Medico p);
     public Error compruebaEnfermero(Enfermero p);

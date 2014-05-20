@@ -5,7 +5,6 @@
  */
 package Ejb;
 
-import Entidades.Admin;
 import Entidades.Alerta;
 import Entidades.Contacto;
 import Entidades.Enfermero;
@@ -215,5 +214,10 @@ public class PersonaImpl implements PersonaEjb {
       if(pru2 == null) return Error.CORREO_REPETIDO;
         crearAdministrativo(p);
         return Error.NO_ERROR;
+    }
+
+    @Override
+    public Medico getMedico(Integer nss) {
+        return em.createNamedQuery("Medico.getHorario", Medico.class).setParameter("nss", nss).getSingleResult();
     }
 }
