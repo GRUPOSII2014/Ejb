@@ -42,8 +42,8 @@ public interface PersonaEjb {
     public List<Mensaje> allMensajes(Integer nss);
     public void crearFormularioContacto(Contacto c);
     public Trabajador getTrabajador(Integer nss);
-    public Trabajador getTrabajador(String nombre);
+    public Trabajador getTrabajador(String dni);
     public void setMensaje(Mensaje m);
-    public List<String> getTrabajadores(String query);
+    public List<Trabajador> getTrabajadores(String query);
     public String getDiscriminador(Integer nss);
 }

@@ -110,9 +110,9 @@ public class PersonaImpl implements PersonaEjb {
     }
     
     @Override
-    public Trabajador getTrabajador(String nombre) {
-        return em.createNamedQuery("trabajador.nombre", Trabajador.class)
-                .setParameter("nombre", nombre)
+    public Trabajador getTrabajador(String dni) {
+        return em.createNamedQuery("trabajador.dni", Trabajador.class)
+                .setParameter("dni", dni)
                 .getSingleResult();
     }
     
@@ -122,8 +122,8 @@ public class PersonaImpl implements PersonaEjb {
     }
     
     @Override
-    public List<String> getTrabajadores(String query) {
-        return em.createQuery("select p.nombre from Persona p where p.nombre like :buscado")
+    public List<Trabajador> getTrabajadores(String query) {
+        return em.createNamedQuery("Trabajador.completar", Trabajador.class)
                 .setParameter("buscado", query+"%")
                 .getResultList();
     }
