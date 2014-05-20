@@ -158,7 +158,8 @@ public class PersonaImpl implements PersonaEjb {
         for (Horario h : t.getHorarios()) {
             entrada.setTime(h.getHoraEntrada());
             salida.setTime(h.getHoraSalida());
-            if (ahora.get(Calendar.HOUR) < salida.get(Calendar.HOUR) && ahora.get(Calendar.HOUR) > entrada.get(Calendar.HOUR)) {
+            
+            if (ahora.get(Calendar.HOUR_OF_DAY) < salida.get(Calendar.HOUR_OF_DAY) && ahora.get(Calendar.HOUR_OF_DAY) > entrada.get(Calendar.HOUR_OF_DAY)) {
                 disc = t.getDisc();
                 break;
             }
