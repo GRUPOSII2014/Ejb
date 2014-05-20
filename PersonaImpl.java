@@ -225,4 +225,9 @@ public class PersonaImpl implements PersonaEjb {
     public List<Medico> medicos() {
         return em.createNamedQuery("Medico.all", Medico.class).getResultList();
     }
+
+    @Override
+    public void actualizaMedico(Medico m) {
+        em.merge(m);
+    }
 }
