@@ -11,6 +11,7 @@ import Entidades.Persona;
 import Entidades.Trabajador;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,10 +26,12 @@ public class EventosImpl implements EventosEjb {
     @PersistenceContext(unitName = "HospitalEE-ejbPU")
     private EntityManager em;
     
+    @EJB
+    private PersonaEjb ejb;
+    
     
     @Override
     public void crearEventos(Alerta a) {
-       
         em.persist(a);
         
     }
