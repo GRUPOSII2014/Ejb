@@ -12,6 +12,7 @@ import Entidades.Enumerados;
 import Entidades.Persona;
 import Entidades.Tratamiento;
 import Entidades.Urgencia;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,7 +39,8 @@ public class IngresoImpl implements IngresoEjb {
     @Override
     public Cama primeraLibre(){
         TypedQuery<Cama> query = em.createNamedQuery("Cama.all",Cama.class);
-        List<Cama> camas = query.getResultList();
+        List<Cama> camas= query.getResultList();
+        
         return camas.get(0);
     }
     

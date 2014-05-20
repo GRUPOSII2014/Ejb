@@ -5,14 +5,19 @@
  */
 package Ejb;
 
+import Entidades.Admin;
 import Entidades.Alerta;
 import Entidades.Contacto;
 import Entidades.Enfermero;
 import Entidades.HistoriaClinica;
+import Entidades.Horario;
+import Entidades.Medico;
 import Entidades.Mensaje;
 import Entidades.Persona;
 import Entidades.Trabajador;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -121,5 +126,45 @@ public class PersonaImpl implements PersonaEjb {
         return em.createQuery("select p.nombre from Persona p where p.nombre like :buscado")
                 .setParameter("buscado", query+"%")
                 .getResultList();
+    }
+
+    @Override
+    public void crearMedico(Medico m) {
+        em.persist(m);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void crearAdministrativo(Admin a) {
+        em.persist(a);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void crearEnfermero(Enfermero enf) {
+        em.persist(enf);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public String getDiscriminador(Integer nss) {
+        Trabajador t = getTrabajador(nss);
+        String disc = "P";
+        Calendar ahora = new GregorianCalendar();
+        ahora.setTime(new Date());
+        Calendar entrada = new GregorianCalendar();
+        Calendar salida = new GregorianCalendar();
+        
+        for (Horario h : t.getHorarios()) {
+            entrada.setTime(h.getHoraEntrada());
+            salida.setTime(h.getHoraSalida());
+            
+            if (ahora.get(Calendar.HOUR_OF_DAY) < salida.get(Calendar.HOUR_OF_DAY) && ahora.get(Calendar.HOUR_OF_DAY) > entrada.get(Calendar.HOUR_OF_DAY)) {
+                disc = t.getDisc();
+                break;
+            }
+        }
+       
+        return disc;
     }
 }
