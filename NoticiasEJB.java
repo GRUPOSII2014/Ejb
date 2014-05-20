@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface NoticiasEJB {
     public List<Noticia> allNoticias();
+    public void setNoticia(Noticia n, Integer nss);
 }
