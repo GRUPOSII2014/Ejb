@@ -5,10 +5,12 @@
  */
 package Ejb;
 
+import Entidades.Admin;
 import Entidades.Alerta;
 import Entidades.Contacto;
 import Entidades.Enfermero;
 import Entidades.HistoriaClinica;
+import Entidades.Medico;
 import Entidades.Mensaje;
 import Entidades.Persona;
 import Entidades.Trabajador;
@@ -121,5 +123,23 @@ public class PersonaImpl implements PersonaEjb {
         return em.createQuery("select p.nombre from Persona p where p.nombre like :buscado")
                 .setParameter("buscado", query+"%")
                 .getResultList();
+    }
+
+    @Override
+    public void crearMedico(Medico m) {
+        em.persist(m);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void crearAdministrativo(Admin a) {
+        em.persist(a);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void crearEnfermero(Enfermero enf) {
+        em.persist(enf);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

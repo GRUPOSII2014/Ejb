@@ -12,6 +12,9 @@ import Entidades.Enfermero;
 import Entidades.HistoriaClinica;
 import Entidades.Mensaje;
 import Entidades.Persona;
+import Entidades.Enfermero;
+import Entidades.Medico;
+import Entidades.Admin;
 import Entidades.Trabajador;
 import java.util.List;
 
@@ -26,6 +29,9 @@ public interface PersonaEjb {
     
     
     public void crearPersona(Persona p);
+    public void crearMedico (Medico m);
+    public void crearAdministrativo (Admin a);
+    public void crearEnfermero (Enfermero enf);
     public void actualizaPersona(Persona p);
     public List<Persona> todasPersonas();
     public List<Enfermero> todosEnfermeros();
