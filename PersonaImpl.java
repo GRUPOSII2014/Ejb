@@ -220,4 +220,9 @@ public class PersonaImpl implements PersonaEjb {
     public Medico getMedico(Integer nss) {
         return em.createNamedQuery("Medico.getHorario", Medico.class).setParameter("nss", nss).getSingleResult();
     }
+
+    @Override
+    public List<Medico> medicos() {
+        return em.createNamedQuery("Medico.all", Medico.class).getResultList();
+    }
 }

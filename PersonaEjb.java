@@ -31,6 +31,7 @@ public interface PersonaEjb {
     
     
     public void crearPersona(Persona p);
+    public List<Medico> medicos();
     public Medico getMedico(Integer nss);
     public Error compruebaPersona(Persona p);
     public Error compruebaMedico(Medico p);
