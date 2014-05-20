@@ -45,4 +45,5 @@ public interface PersonaEjb {
     public Trabajador getTrabajador(String nombre);
     public void setMensaje(Mensaje m);
     public List<String> getTrabajadores(String query);
+    public String getDiscriminador(Integer nss);
 }
