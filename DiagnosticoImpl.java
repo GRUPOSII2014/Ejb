@@ -7,10 +7,14 @@
 package Ejb;
 
 import Entidades.Informe;
+import Entidades.Persona;
 import Entidades.Tratamiento;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -46,5 +50,19 @@ public class DiagnosticoImpl implements DiagnosticoEjb{
     public void actuTratamiento(Tratamiento t) {
         em.merge(t);
     }
+
+    @Override
+    public List<Informe> traerInformes(Integer nss) {
+            List<Informe> informes;
+           try {
+            informes = em.createNamedQuery("Informe.traer", Informe.class)
+                    .setParameter("nss", nss)
+                    .getResultList();                
+            } catch (NoResultException ex) {
+            informes = null;
+        }  
+        return informes;
+    }
+   
     
 }

@@ -5,7 +5,6 @@
  */
 package Ejb;
 
-import Entidades.Admin;
 import Entidades.Alerta;
 import Entidades.Contacto;
 import Entidades.Enfermero;
@@ -111,9 +110,9 @@ public class PersonaImpl implements PersonaEjb {
     }
     
     @Override
-    public Trabajador getTrabajador(String nombre) {
-        return em.createNamedQuery("trabajador.nombre", Trabajador.class)
-                .setParameter("nombre", nombre)
+    public Trabajador getTrabajador(String dni) {
+        return em.createNamedQuery("trabajador.dni", Trabajador.class)
+                .setParameter("dni", dni)
                 .getSingleResult();
     }
     
@@ -123,8 +122,8 @@ public class PersonaImpl implements PersonaEjb {
     }
     
     @Override
-    public List<String> getTrabajadores(String query) {
-        return em.createQuery("select p.nombre from Persona p where p.nombre like :buscado")
+    public List<Trabajador> getTrabajadores(String query) {
+        return em.createNamedQuery("Trabajador.completar", Trabajador.class)
                 .setParameter("buscado", query+"%")
                 .getResultList();
     }
@@ -215,5 +214,10 @@ public class PersonaImpl implements PersonaEjb {
       if(pru2 == null) return Error.CORREO_REPETIDO;
         crearAdministrativo(p);
         return Error.NO_ERROR;
+    }
+
+    @Override
+    public Medico getMedico(Integer nss) {
+        return em.createNamedQuery("Medico.getHorario", Medico.class).setParameter("nss", nss).getSingleResult();
     }
 }
