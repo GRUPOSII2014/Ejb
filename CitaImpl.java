@@ -28,7 +28,9 @@ public class CitaImpl implements CitaEjb {
     
     @Override
     public List<Cita> citasNoAtendidas(Integer nss) {
-        return em.createNamedQuery("cita.all",Cita.class).getResultList();
+        List <Cita> citas = new ArrayList<>();
+        citas.addAll(em.createNamedQuery("cita.noAtendida",Cita.class).setParameter("nss", nss).getResultList());
+        return citas;
     }
 
     @Override

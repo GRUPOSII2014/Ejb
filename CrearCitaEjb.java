@@ -6,7 +6,8 @@
 
 package Ejb;
 
-import Entidades.Persona;
+import Entidades.Medico;
+import java.util.List;
 
 /**
  *
@@ -15,7 +16,8 @@ import Entidades.Persona;
 
 public interface CrearCitaEjb {
    
-    Persona buscarPersona(Integer nss);
-    void crearCita ();
+    public List<Medico> getMedicos();
+    public void asignaCita(Medico m);
+    public void crearCita ();
     
 }
