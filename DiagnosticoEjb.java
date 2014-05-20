@@ -8,6 +8,7 @@ package Ejb;
 
 import Entidades.Informe;
 import Entidades.Tratamiento;
+import java.util.List;
 
 /**
  *
@@ -19,4 +20,5 @@ public interface DiagnosticoEjb {
     public void actualizaInf(Informe i);
     public void creaTratamiento(Tratamiento t);
     public void actuTratamiento(Tratamiento t);
+    public List<Informe> traerInformes(Integer nss);
 }
