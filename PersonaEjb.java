@@ -8,7 +8,6 @@ package Ejb;
 
 import Entidades.Alerta;
 import Entidades.Contacto;
-import Entidades.Enfermero;
 import Entidades.HistoriaClinica;
 import Entidades.Mensaje;
 import Entidades.Persona;
@@ -16,6 +15,7 @@ import Entidades.Enfermero;
 import Entidades.Medico;
 import Entidades.Admin;
 import Entidades.Trabajador;
+import Entidades.TrabajadoresHospital;
 import java.util.List;
 
 /**
@@ -24,13 +24,20 @@ import java.util.List;
  */
 public interface PersonaEjb {
     public static enum Error {
-        NO_ERROR
+        NO_ERROR,
+        DNI_REPETIDO,
+        CORREO_REPETIDO,
+        NSS_REPETIDO
     };
     
     
     public void crearPersona(Persona p);
+    public Error compruebaPersona(Persona p);
+    public Error compruebaMedico(Medico p);
+    public Error compruebaEnfermero(Enfermero p);
+    public Error compruebaAdministrativo(TrabajadoresHospital p);
     public void crearMedico (Medico m);
-    public void crearAdministrativo (Admin a);
+    public void crearAdministrativo (TrabajadoresHospital a);
     public void crearEnfermero (Enfermero enf);
     public void actualizaPersona(Persona p);
     public List<Persona> todasPersonas();
