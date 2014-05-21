@@ -31,6 +31,7 @@ public interface PersonaEjb {
     
     
     public void crearPersona(Persona p);
+    public void crearPersona(HistoriaClinica h);
     public void actualizaMedico(Medico m);
     public List<Medico> medicos();
     public Medico getMedico(Integer nss);
@@ -47,6 +48,7 @@ public interface PersonaEjb {
     public Persona compruebaPersona(Integer nss, String passwd);
     public HistoriaClinica getHistoria(Integer nss);
     public Persona getPersona(Integer nss);
+    public Persona getPersona(String dni);
     public List<Alerta> allAlertas(Integer nss);
     public List<Mensaje> allMensajes(Integer nss);
     public void crearFormularioContacto(Contacto c);
