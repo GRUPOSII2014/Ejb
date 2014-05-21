@@ -20,7 +20,8 @@ public interface EventosEjb {
       
    
     
-    public void crearEventos(Alerta a);
+    public void crearEventos(Alerta a, Persona p);
     public List<Persona> getPersonas(String bus);
+    public void crearEventos(Alerta a);
     
 }

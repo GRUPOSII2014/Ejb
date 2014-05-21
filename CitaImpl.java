@@ -57,4 +57,11 @@ public class CitaImpl implements CitaEjb {
     public void crearCita(Cita c) {
         em.persist(c);
     }
+
+    @Override
+    public List<Cita> citasDePersona(Integer nss) {
+        ArrayList<Cita> citas = new ArrayList<>();
+        citas.addAll(em.createNamedQuery("cita.noAsistida", Cita.class ).setParameter("nss", nss).getResultList());
+        return citas;
+    }
 }

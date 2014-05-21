@@ -8,7 +8,6 @@ package Ejb;
 
 import Entidades.Alerta;
 import Entidades.Persona;
-import Entidades.Trabajador;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -31,9 +30,34 @@ public class EventosImpl implements EventosEjb {
     
     
     @Override
+    public void crearEventos(Alerta a, Persona p) {
+        if (!em.contains(p))
+            em.merge(p);
+        
+        if (p.getAlertas() == null)
+            p.setAlertas(new ArrayList<Alerta>());
+        
+        p.getAlertas().add(a);
+        em.persist(a);
+        em.merge(p);
+    }
+    
+    @Override
     public void crearEventos(Alerta a) {
+        List<Persona> lista = ejb.todasPersonas();
+        
+        for (Persona p : lista) {
+            if (p.getAlertas() == null)
+                p.setAlertas(new ArrayList<Alerta>());
+            
+            p.getAlertas().add(a);
+        }
+       
         em.persist(a);
         
+        for (Persona p : lista) {
+            em.merge(p);
+        }
     }
 
     @Override

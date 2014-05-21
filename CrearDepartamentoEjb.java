@@ -6,17 +6,15 @@
 
 package Ejb;
 
-import Entidades.Medico;
-import java.util.Date;
+import Entidades.Departamento;
+import Entidades.Hospital;
 import java.util.List;
 
 /**
  *
- * @author Angel
+ * @author ALBERTO
  */
-
-public interface CrearCitaEjb {
-   
-    public Date asignaCita(Medico m);
-    
+public interface CrearDepartamentoEjb {
+    void crearDepartamento (Departamento d);
+    public List<Hospital> todosHospitales();
 }
