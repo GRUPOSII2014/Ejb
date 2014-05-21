@@ -6,10 +6,6 @@
 
 package Ejb;
 
-import Entidades.Cama;
-import Entidades.Habitacion;
-import Entidades.Persona;
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
