@@ -15,6 +15,7 @@ import java.util.List;
  * @author PyRoS
  */
 public interface CitaEjb {
+    public List<Cita> citasDePersona(Integer nss);
     public List<Cita> citasNoAtendidas(Integer nss);
     public List<Urgencia> urgenciasEspera(Integer nss);
     public void avanzaAtendiendo(Urgencia u);
