@@ -224,5 +224,10 @@ public class CrearCitaImpl implements CrearCitaEjb{
      
         return horaCita.getTime();
     }
+
+    @Override
+    public void creaCita(Cita c) {
+        em.persist(c);
+    }
     
 }

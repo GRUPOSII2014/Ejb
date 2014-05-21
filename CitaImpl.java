@@ -64,4 +64,17 @@ public class CitaImpl implements CitaEjb {
         citas.addAll(em.createNamedQuery("cita.noAsistida", Cita.class ).setParameter("nss", nss).getResultList());
         return citas;
     }
+
+    @Override
+    public int citasPorDelante(Integer nss) {
+        ArrayList<Cita> citas = new ArrayList<>();
+        citas.addAll(citasDePersona(nss));
+        int i = -1;
+        for(Cita c : citas){
+            if(c.getTipoCita()==c.getTipoCita().LISTA_ESPERA){
+                i++;
+            }
+        }
+        return i;
+    }
 }
