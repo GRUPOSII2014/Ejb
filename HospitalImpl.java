@@ -50,7 +50,6 @@ public class HospitalImpl implements HospitalEjb {
     
     @Override
     public void crearHabitacion(Habitacion h){
-        em.persist(h.getPlanta().getHabitaciones().add(h));
         em.persist(h);
     }
 

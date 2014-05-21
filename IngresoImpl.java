@@ -31,6 +31,7 @@ public class IngresoImpl implements IngresoEjb {
     
     @Override
     public void asignarCama(Persona p, Cama c){
+        p.setCama(c);
         c.setPaciente(p);
         c.setEstado(Enumerados.estadoCama.OCUPADA);
         em.merge(c);
@@ -80,8 +81,9 @@ public class IngresoImpl implements IngresoEjb {
     
      @Override
     public void liberarCama(Integer c) {
-        Persona p = em.find(Persona.class, c);
-        Entidades.Cama ca = p.getCama();
+        Persona p = em.createNamedQuery("Persona.nss", Persona.class).setParameter("nss", c).getSingleResult();
+        Cama ca = p.getCama();
+        p.setCama(null);
         ca.setEstado(Enumerados.estadoCama.LIBRE);
         ca.setPaciente(null);
         em.merge(ca);
