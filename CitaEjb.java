@@ -7,7 +7,6 @@
 package Ejb;
 
 import Entidades.Cita;
-import Entidades.Urgencia;
 import java.util.List;
 
 /**
@@ -19,9 +18,6 @@ public interface CitaEjb {
     public int citasPorDelante(Integer nss);
     public List<Cita> citasDePersona(Integer nss);
     public List<Cita> citasNoAtendidas(Integer nss);
-    public List<Urgencia> urgenciasEspera(Integer nss);
-    public void avanzaAtendiendo(Urgencia u);
     public void avanvaCita(Cita c);
     public void crearCita (Cita c);
-    public void crearUrgencia (Urgencia u);
 }

@@ -12,7 +12,6 @@ import Entidades.Enumerados;
 import Entidades.Habitacion;
 import Entidades.Persona;
 import Entidades.Tratamiento;
-import Entidades.Urgencia;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -81,13 +80,4 @@ public class IngresoImpl implements IngresoEjb {
         p.setHistoriaclinica(hist);
     }
     
-    @Override
-    public void crearCita(Cita c){
-        em.persist(c);
-    }
-    
-    @Override
-    public void crearUrgencia(Urgencia u){
-        em.persist(u);
-    }
 }

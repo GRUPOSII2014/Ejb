@@ -10,7 +10,6 @@ import Entidades.Cama;
 import Entidades.Cita;
 import Entidades.Persona;
 import Entidades.Tratamiento;
-import Entidades.Urgencia;
 
 /**
  *
@@ -21,6 +20,5 @@ public interface IngresoEjb {
     public void asignarCama(Persona p, Cama c);
     public Cama primeraLibre(Persona p);
     public void terminarTratamiento(Tratamiento t);
-    public void crearCita(Cita c);
-    public void crearUrgencia(Urgencia c);
+
 }
