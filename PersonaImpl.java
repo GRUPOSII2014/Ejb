@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,15 +32,8 @@ public class PersonaImpl implements PersonaEjb {
     private EntityManager em;
 
     @Override
-    public boolean crearPersona(HistoriaClinica h) {
-        boolean existe = false;
-        try {
-            em.persist(h);
-        } catch (Exception e) {
-            existe = true;
-        }
-
-        return existe;
+    public void crearPersona(HistoriaClinica h) {
+        em.persist(h);
     }
 
     @Override
