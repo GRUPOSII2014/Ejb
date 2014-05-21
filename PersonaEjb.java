@@ -56,4 +56,5 @@ public interface PersonaEjb {
     public void setMensaje(Mensaje m);
     public List<Trabajador> getTrabajadores(String query);
     public String getDiscriminador(Integer nss);
+    public void actualizaHistoriaClinica(HistoriaClinica c);
 }

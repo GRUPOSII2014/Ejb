@@ -14,7 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.TypedQuery;
 import Entidades.Cama;
+import Entidades.Enumerados;
 import Entidades.Habitacion;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,7 +24,7 @@ import Entidades.Habitacion;
  */
 @Entity
 public class crearCamaImpl implements crearCamaEjb {
-     private EntityManager em;
+    private EntityManager em;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -82,6 +84,10 @@ public class crearCamaImpl implements crearCamaEjb {
          TypedQuery<Cama> query = em.createNamedQuery("Cama.all", Cama.class);
         return query.getResultList();
     }
+    
+   
+    
+    
 
     
     public String comprobarCama(Cama c) {
@@ -92,6 +98,9 @@ public class crearCamaImpl implements crearCamaEjb {
         return "Cama creada correctamente";
     }
 
+   
+
+    
   
     
 }

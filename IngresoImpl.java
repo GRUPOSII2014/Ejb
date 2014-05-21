@@ -31,9 +31,10 @@ public class IngresoImpl implements IngresoEjb {
     
     @Override
     public void asignarCama(Persona p, Cama c){
-        p.setCama(c);
         c.setPaciente(p);
         c.setEstado(Enumerados.estadoCama.OCUPADA);
+        em.merge(c);
+        em.merge(p);
     }
     
     @Override
@@ -66,6 +67,27 @@ public class IngresoImpl implements IngresoEjb {
         
     }
     
+     @Override
+    public List<Cama> todasCamasOcupadas() {
+         TypedQuery<Cama> query = em.createNamedQuery("Cama.all", Cama.class);
+         List<Cama> lista = new ArrayList<>();
+         for (Cama c : query.getResultList()){
+             if(c.getEstado()==Entidades.Enumerados.estadoCama.OCUPADA)
+                 lista.add(c);
+         }
+        return lista;
+    }
+    
+     @Override
+    public void liberarCama(Integer c) {
+        Persona p = em.find(Persona.class, c);
+        Entidades.Cama ca = p.getCama();
+        ca.setEstado(Enumerados.estadoCama.LIBRE);
+        ca.setPaciente(null);
+        em.merge(ca);
+        em.merge(p);
+    }
+    
     @Override
     public void terminarTratamiento(Tratamiento t){
         Persona p = t.getPersona();
@@ -80,4 +102,8 @@ public class IngresoImpl implements IngresoEjb {
         p.setHistoriaclinica(hist);
     }
     
+    @Override
+    public void crearCita(Cita c){
+        em.persist(c);
+    }
 }

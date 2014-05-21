@@ -270,4 +270,9 @@ public class PersonaImpl implements PersonaEjb {
                 .setParameter("dni", dni)
                 .getSingleResult();
     }
+
+    @Override
+    public void actualizaHistoriaClinica(HistoriaClinica c) {
+        em.merge(c);
+    }
 }

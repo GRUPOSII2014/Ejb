@@ -10,6 +10,7 @@ import Entidades.Cama;
 import Entidades.Cita;
 import Entidades.Persona;
 import Entidades.Tratamiento;
+import java.util.List;
 
 /**
  *
@@ -20,5 +21,7 @@ public interface IngresoEjb {
     public void asignarCama(Persona p, Cama c);
     public Cama primeraLibre(Persona p);
     public void terminarTratamiento(Tratamiento t);
-
+    public void crearCita(Cita c);
+    public List<Cama> todasCamasOcupadas();
+    public void liberarCama(Integer pac);
 }
