@@ -39,7 +39,6 @@ public class PersonaImpl implements PersonaEjb {
     @Override
     public void crearPersona(HistoriaClinica h) {
         em.persist(h);
-        em.persist(h.getPersona());
     }
 
     @Override
