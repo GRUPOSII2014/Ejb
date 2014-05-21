@@ -17,7 +17,7 @@ import java.util.Date;
 
 public interface CrearCitaEjb {
    
-    public Date asignaCita(Medico m);
+    //public Date asignaCita(Medico m);
     public void creaCita(Cita c);
     
 }
