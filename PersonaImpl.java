@@ -21,7 +21,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -262,7 +261,7 @@ public class PersonaImpl implements PersonaEjb {
     }
 
     @Override
-    public List<Medico> medicos() {
+    public List<Medico> todosMedicos() {
         return em.createNamedQuery("Medico.all", Medico.class).getResultList();
     }
 

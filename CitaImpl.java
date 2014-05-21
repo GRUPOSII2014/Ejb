@@ -37,19 +37,14 @@ public class CitaImpl implements CitaEjb {
     public List<Urgencia> urgenciasEspera(Integer nss) {
         List<Urgencia> urgencias = new ArrayList<>();
         for(Urgencia u : em.createNamedQuery("urgencia.trabajador", Urgencia.class).setParameter("nss", nss).getResultList()){
-            if(u.getEstado() == u.getEstado().ESPERA) urgencias.add(u);
+            if(!u.isAtendido()) urgencias.add(u);
         }
         return urgencias;
     }
 
     @Override
     public void avanzaAtendiendo(Urgencia u) {
-        u.setEstado(Enumerados.estadoUrgencia.ATENDIENDO);
-        em.merge(u);
-    }
-    @Override
-    public void avanzaTratamiento(Urgencia u){
-        u.setEstado(Enumerados.estadoUrgencia.TRATAMIENTO);
+        u.setAtendido(true);
         em.merge(u);
     }
 
@@ -82,5 +77,16 @@ public class CitaImpl implements CitaEjb {
     public void cancelarCita(Cita c) {
         c.setAtendido(true);
         em.merge(c);
+    }
+
+    @Override
+    public void avanvaCita(Cita c) {
+        c.setAtendido(true);
+        em.merge(c);
+    }
+
+    @Override
+    public void crearUrgencia(Urgencia u) {
+        em.persist(u);
     }
 }
