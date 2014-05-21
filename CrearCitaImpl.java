@@ -9,6 +9,7 @@ package Ejb;
 import Entidades.Cita;
 import Entidades.Horario;
 import Entidades.Medico;
+import Entidades.Urgencia;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,5 +32,11 @@ public class CrearCitaImpl implements CrearCitaEjb{
     public void creaCita(Cita c) {
         em.persist(c);
     }
+
+    @Override
+    public void crearUrgencia(Urgencia u) {
+        em.persist(u);
+    }
+    
     
 }

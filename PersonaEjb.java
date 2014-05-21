@@ -32,7 +32,7 @@ public interface PersonaEjb {
     
     public void crearPersona(HistoriaClinica h);
     public void actualizaMedico(Medico m);
-    public List<Medico> medicos();
+    public List<Medico> todosMedicos();
     public Medico getMedico(Integer nss);
     public Error compruebaPersona(HistoriaClinica h);
     public Error compruebaMedico(Medico p);
