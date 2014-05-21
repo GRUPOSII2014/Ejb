@@ -9,7 +9,9 @@ package Ejb;
 import Entidades.Habitacion;
 import Entidades.Hospital;
 import Entidades.Planta;
+import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -18,6 +20,7 @@ import javax.persistence.TypedQuery;
  *
  * @author Angel
  */
+@Stateless
 public class HospitalImpl implements HospitalEjb {
     
      @PersistenceContext(unitName = "HospitalEE-ejbPU")
@@ -47,7 +50,9 @@ public class HospitalImpl implements HospitalEjb {
     
     @Override
     public void crearHabitacion(Habitacion h){
+        em.persist(h.getPlanta().getHabitaciones().add(h));
         em.persist(h);
     }
+
     
 }

@@ -13,6 +13,7 @@ import java.util.List;
  *
  * @author Fernando
  */
+
 public interface crearCamaEjb {
     void crearCama (Cama c);
     public List <Entidades.Habitacion> todasHabitaciones();
