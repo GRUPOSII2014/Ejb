@@ -37,4 +37,10 @@ public class CrearDepartamentoImpl implements CrearDepartamentoEjb{
         return query.getResultList();
     }
     
+    @Override
+    public List<Departamento> todosDepartamentos() {
+        return em.createQuery("select d from Departamento d", Departamento.class)
+                .getResultList();
+    }
+    
 }
