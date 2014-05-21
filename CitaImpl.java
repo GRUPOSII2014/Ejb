@@ -6,15 +6,11 @@
 package Ejb;
 
 import Entidades.Cita;
-import Entidades.Enumerados;
-import Entidades.Trabajador;
-import Entidades.Urgencia;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -31,21 +27,6 @@ public class CitaImpl implements CitaEjb {
         List <Cita> citas = new ArrayList<>();
         citas.addAll(em.createNamedQuery("cita.noAtendida",Cita.class).setParameter("nss", nss).getResultList());
         return citas;
-    }
-
-    @Override
-    public List<Urgencia> urgenciasEspera(Integer nss) {
-        List<Urgencia> urgencias = new ArrayList<>();
-        for(Urgencia u : em.createNamedQuery("urgencia.trabajador", Urgencia.class).setParameter("nss", nss).getResultList()){
-            if(!u.isAtendido()) urgencias.add(u);
-        }
-        return urgencias;
-    }
-
-    @Override
-    public void avanzaAtendiendo(Urgencia u) {
-        u.setAtendido(true);
-        em.merge(u);
     }
 
     @Override
@@ -85,8 +66,4 @@ public class CitaImpl implements CitaEjb {
         em.merge(c);
     }
 
-    @Override
-    public void crearUrgencia(Urgencia u) {
-        em.persist(u);
-    }
 }

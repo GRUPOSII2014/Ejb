@@ -7,14 +7,6 @@
 package Ejb;
 
 import Entidades.Cita;
-import Entidades.Horario;
-import Entidades.Medico;
-import Entidades.Urgencia;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,11 +23,6 @@ public class CrearCitaImpl implements CrearCitaEjb{
     @Override
     public void creaCita(Cita c) {
         em.persist(c);
-    }
-
-    @Override
-    public void crearUrgencia(Urgencia u) {
-        em.persist(u);
     }
     
     
