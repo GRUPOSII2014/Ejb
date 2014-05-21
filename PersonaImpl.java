@@ -66,9 +66,15 @@ public class PersonaImpl implements PersonaEjb {
 
     @Override
     public Persona getPersona(Integer nss) {
-        return em.createNamedQuery("Persona", Persona.class)
+        Persona p;
+        try{
+            p =em.createNamedQuery("Persona", Persona.class)
                 .setParameter("nss", nss)
                 .getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
+        return p;
     }
 
     @Override
