@@ -32,13 +32,15 @@ public class PersonaImpl implements PersonaEjb {
     private EntityManager em;
 
     @Override
-    public void crearPersona(Persona p) {
-        em.persist(p);
-    }
-    
-    @Override
-    public void crearPersona(HistoriaClinica h) {
-        em.persist(h);
+    public boolean crearPersona(HistoriaClinica h) {
+        boolean existe = false;
+        try {
+            em.persist(h);
+        } catch (Exception e) {
+            existe = true;
+        }
+
+        return existe;
     }
 
     @Override
@@ -46,9 +48,9 @@ public class PersonaImpl implements PersonaEjb {
         TypedQuery<Persona> query = em.createNamedQuery("Persona.all", Persona.class);
         return query.getResultList();
     }
-    
+
     @Override
-    public List<Enfermero> todosEnfermeros(){
+    public List<Enfermero> todosEnfermeros() {
         TypedQuery<Enfermero> query = em.createNamedQuery("Enfermero.all", Enfermero.class);
         return query.getResultList();
     }
@@ -72,11 +74,11 @@ public class PersonaImpl implements PersonaEjb {
     @Override
     public Persona getPersona(Integer nss) {
         Persona p;
-        try{
-            p =em.createNamedQuery("Persona", Persona.class)
-                .setParameter("nss", nss)
-                .getSingleResult();
-        }catch(Exception e){
+        try {
+            p = em.createNamedQuery("Persona", Persona.class)
+                    .setParameter("nss", nss)
+                    .getSingleResult();
+        } catch (Exception e) {
             return null;
         }
         return p;
@@ -86,7 +88,7 @@ public class PersonaImpl implements PersonaEjb {
     public HistoriaClinica getHistoria(Integer nss) {
         return getPersona(nss).getHistoriaclinica();
     }
-    
+
     @Override
     public List<Alerta> allAlertas(Integer nss) {
         return em.createNamedQuery("listaAlertas", Alerta.class)
@@ -94,7 +96,7 @@ public class PersonaImpl implements PersonaEjb {
                 .setParameter("hora", new Date())
                 .getResultList();
     }
-    
+
     @Override
     public List<Mensaje> allMensajes(Integer nss) {
         Trabajador t = getTrabajador(nss);
@@ -110,8 +112,8 @@ public class PersonaImpl implements PersonaEjb {
 
     @Override
     public void actualizaPersona(Persona p) {
-       em.merge(p);
-     }
+        em.merge(p);
+    }
 
     @Override
     public Trabajador getTrabajador(Integer nss) {
@@ -119,23 +121,23 @@ public class PersonaImpl implements PersonaEjb {
                 .setParameter("nss", nss)
                 .getSingleResult();
     }
-    
+
     @Override
     public Trabajador getTrabajador(String dni) {
         return em.createNamedQuery("trabajador.dni", Trabajador.class)
                 .setParameter("dni", dni)
                 .getSingleResult();
     }
-    
+
     @Override
     public void setMensaje(Mensaje m) {
         em.persist(m);
     }
-    
+
     @Override
     public List<Trabajador> getTrabajadores(String query) {
         return em.createNamedQuery("Trabajador.completar", Trabajador.class)
-                .setParameter("buscado", query+"%")
+                .setParameter("buscado", query + "%")
                 .getResultList();
     }
 
@@ -156,7 +158,7 @@ public class PersonaImpl implements PersonaEjb {
         em.persist(enf);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public String getDiscriminador(Integer nss) {
         Trabajador t = getTrabajador(nss);
@@ -165,40 +167,55 @@ public class PersonaImpl implements PersonaEjb {
         ahora.setTime(new Date());
         Calendar entrada = new GregorianCalendar();
         Calendar salida = new GregorianCalendar();
-        
+
         for (Horario h : t.getHorarios()) {
             entrada.setTime(h.getHoraEntrada());
             salida.setTime(h.getHoraSalida());
-            
+
             if (ahora.get(Calendar.HOUR_OF_DAY) < salida.get(Calendar.HOUR_OF_DAY) && ahora.get(Calendar.HOUR_OF_DAY) > entrada.get(Calendar.HOUR_OF_DAY)) {
                 disc = t.getDisc();
                 break;
             }
         }
-       
+
         return disc;
     }
 
     @Override
-    public Error compruebaPersona(Persona p) {
-      Persona pru = em.createNamedQuery("Persona.nss", Persona.class).setParameter("nss", p.getNumSegSocial()).getSingleResult();
-      Persona pru1 = em.createNamedQuery("Persona.dni", Persona.class).setParameter("dni", p.getDNI()).getSingleResult();
-      Persona pru2 = em.createNamedQuery("Persona.correo", Persona.class).setParameter("correo", p.getDNI()).getSingleResult();
-      if(pru == null) return Error.NSS_REPETIDO;
-      if(pru1 == null) return Error.DNI_REPETIDO;
-      if(pru2 == null) return Error.CORREO_REPETIDO;
-        crearPersona(p);
-      return Error.NO_ERROR;
+    public Error compruebaPersona(HistoriaClinica h) {
+        Persona p = h.getPersona();
+        Persona pru = em.createNamedQuery("Persona.nss", Persona.class).setParameter("nss", p.getNumSegSocial()).getSingleResult();
+        Persona pru1 = em.createNamedQuery("Persona.dni", Persona.class).setParameter("dni", p.getDNI()).getSingleResult();
+        Persona pru2 = em.createNamedQuery("Persona.correo", Persona.class).setParameter("correo", p.getDNI()).getSingleResult();
+
+        if (pru == null) {
+            return Error.NSS_REPETIDO;
+        }
+        if (pru1 == null) {
+            return Error.DNI_REPETIDO;
+        }
+        if (pru2 == null) {
+            return Error.CORREO_REPETIDO;
+        }
+
+        crearPersona(h);
+        return Error.NO_ERROR;
     }
 
     @Override
     public Error compruebaMedico(Medico p) {
         Persona pru = em.createNamedQuery("Persona.nss", Persona.class).setParameter("nss", p.getNumSegSocial()).getSingleResult();
-      Persona pru1 = em.createNamedQuery("Persona.dni", Persona.class).setParameter("dni", p.getDNI()).getSingleResult();
-      Persona pru2 = em.createNamedQuery("Persona.correo", Persona.class).setParameter("correo", p.getDNI()).getSingleResult();
-      if(pru == null) return Error.NSS_REPETIDO;
-      if(pru1 == null) return Error.DNI_REPETIDO;
-      if(pru2 == null) return Error.CORREO_REPETIDO;
+        Persona pru1 = em.createNamedQuery("Persona.dni", Persona.class).setParameter("dni", p.getDNI()).getSingleResult();
+        Persona pru2 = em.createNamedQuery("Persona.correo", Persona.class).setParameter("correo", p.getDNI()).getSingleResult();
+        if (pru == null) {
+            return Error.NSS_REPETIDO;
+        }
+        if (pru1 == null) {
+            return Error.DNI_REPETIDO;
+        }
+        if (pru2 == null) {
+            return Error.CORREO_REPETIDO;
+        }
         crearMedico(p);
         return Error.NO_ERROR;
     }
@@ -206,23 +223,35 @@ public class PersonaImpl implements PersonaEjb {
     @Override
     public Error compruebaEnfermero(Enfermero p) {
         Persona pru = em.createNamedQuery("Persona.nss", Persona.class).setParameter("nss", p.getNumSegSocial()).getSingleResult();
-      Persona pru1 = em.createNamedQuery("Persona.dni", Persona.class).setParameter("dni", p.getDNI()).getSingleResult();
-      Persona pru2 = em.createNamedQuery("Persona.correo", Persona.class).setParameter("correo", p.getDNI()).getSingleResult();
-      if(pru == null) return Error.NSS_REPETIDO;
-      if(pru1 == null) return Error.DNI_REPETIDO;
-      if(pru2 == null) return Error.CORREO_REPETIDO;
+        Persona pru1 = em.createNamedQuery("Persona.dni", Persona.class).setParameter("dni", p.getDNI()).getSingleResult();
+        Persona pru2 = em.createNamedQuery("Persona.correo", Persona.class).setParameter("correo", p.getDNI()).getSingleResult();
+        if (pru == null) {
+            return Error.NSS_REPETIDO;
+        }
+        if (pru1 == null) {
+            return Error.DNI_REPETIDO;
+        }
+        if (pru2 == null) {
+            return Error.CORREO_REPETIDO;
+        }
         crearEnfermero(p);
         return Error.NO_ERROR;
     }
 
     @Override
     public Error compruebaAdministrativo(TrabajadoresHospital p) {
-       Persona pru = em.createNamedQuery("Persona.nss", Persona.class).setParameter("nss", p.getNumSegSocial()).getSingleResult();
-      Persona pru1 = em.createNamedQuery("Persona.dni", Persona.class).setParameter("dni", p.getDNI()).getSingleResult();
-      Persona pru2 = em.createNamedQuery("Persona.correo", Persona.class).setParameter("correo", p.getDNI()).getSingleResult();
-      if(pru == null) return Error.NSS_REPETIDO;
-      if(pru1 == null) return Error.DNI_REPETIDO;
-      if(pru2 == null) return Error.CORREO_REPETIDO;
+        Persona pru = em.createNamedQuery("Persona.nss", Persona.class).setParameter("nss", p.getNumSegSocial()).getSingleResult();
+        Persona pru1 = em.createNamedQuery("Persona.dni", Persona.class).setParameter("dni", p.getDNI()).getSingleResult();
+        Persona pru2 = em.createNamedQuery("Persona.correo", Persona.class).setParameter("correo", p.getDNI()).getSingleResult();
+        if (pru == null) {
+            return Error.NSS_REPETIDO;
+        }
+        if (pru1 == null) {
+            return Error.DNI_REPETIDO;
+        }
+        if (pru2 == null) {
+            return Error.CORREO_REPETIDO;
+        }
         crearAdministrativo(p);
         return Error.NO_ERROR;
     }
@@ -241,7 +270,7 @@ public class PersonaImpl implements PersonaEjb {
     public void actualizaMedico(Medico m) {
         em.merge(m);
     }
-    
+
     @Override
     public Persona getPersona(String dni) {
         return em.createNamedQuery("Persona.dni", Persona.class)

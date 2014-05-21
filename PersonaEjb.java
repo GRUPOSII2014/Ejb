@@ -30,12 +30,11 @@ public interface PersonaEjb {
     };
     
     
-    public void crearPersona(Persona p);
-    public void crearPersona(HistoriaClinica h);
+    public boolean crearPersona(HistoriaClinica h);
     public void actualizaMedico(Medico m);
     public List<Medico> medicos();
     public Medico getMedico(Integer nss);
-    public Error compruebaPersona(Persona p);
+    public Error compruebaPersona(HistoriaClinica h);
     public Error compruebaMedico(Medico p);
     public Error compruebaEnfermero(Enfermero p);
     public Error compruebaAdministrativo(TrabajadoresHospital p);
