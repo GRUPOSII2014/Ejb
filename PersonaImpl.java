@@ -64,7 +64,7 @@ public class PersonaImpl implements PersonaEjb {
                     .setParameter("nss", nss)
                     .setParameter("passwd", passwd)
                     .getSingleResult();
-        } catch (NoResultException ex) {
+        } catch (Exception ex) {
             p = null;
         }
 
@@ -78,7 +78,7 @@ public class PersonaImpl implements PersonaEjb {
             p =em.createNamedQuery("Persona", Persona.class)
                 .setParameter("nss", nss)
                 .getSingleResult();
-        }catch(NoResultException e){
+        }catch(Exception e){
             return null;
         }
         return p;
