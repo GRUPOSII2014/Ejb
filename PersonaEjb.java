@@ -30,7 +30,7 @@ public interface PersonaEjb {
     };
     
     
-    public boolean crearPersona(HistoriaClinica h);
+    public void crearPersona(HistoriaClinica h);
     public void actualizaMedico(Medico m);
     public List<Medico> medicos();
     public Medico getMedico(Integer nss);
