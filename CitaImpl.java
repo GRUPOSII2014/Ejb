@@ -77,4 +77,10 @@ public class CitaImpl implements CitaEjb {
         }
         return i;
     }
+
+    @Override
+    public void cancelarCita(Cita c) {
+        c.setAtendido(true);
+        em.merge(c);
+    }
 }
