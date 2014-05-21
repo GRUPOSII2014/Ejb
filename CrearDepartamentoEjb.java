@@ -17,4 +17,5 @@ import java.util.List;
 public interface CrearDepartamentoEjb {
     void crearDepartamento (Departamento d);
     public List<Hospital> todosHospitales();
+    public List<Departamento> todosDepartamentos();
 }
