@@ -35,6 +35,13 @@ public class PersonaImpl implements PersonaEjb {
     public void crearPersona(Persona p) {
         em.persist(p);
     }
+    
+    @Override
+    public void crearPersona(HistoriaClinica h) {
+        Persona p = h.getPersona();
+        em.persist(p);
+        em.persist(h);
+    }
 
     @Override
     public List<Persona> todasPersonas() {
@@ -229,5 +236,12 @@ public class PersonaImpl implements PersonaEjb {
     @Override
     public void actualizaMedico(Medico m) {
         em.merge(m);
+    }
+    
+    @Override
+    public Persona getPersona(String dni) {
+        return em.createNamedQuery("Persona.dni", Persona.class)
+                .setParameter("dni", dni)
+                .getSingleResult();
     }
 }
