@@ -15,6 +15,7 @@ import java.util.List;
  * @author PyRoS
  */
 public interface CitaEjb {
+    public void cancelarCita(Cita c);
     public int citasPorDelante(Integer nss);
     public List<Cita> citasDePersona(Integer nss);
     public List<Cita> citasNoAtendidas(Integer nss);
