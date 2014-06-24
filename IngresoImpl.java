@@ -102,10 +102,20 @@ public class IngresoImpl implements IngresoEjb {
         lista.add(inf);
         hist.setInformes(lista);
         p.setHistoriaclinica(hist);
+        em.persist(t);
+        em.persist(inf);
+        em.merge(hist);
+        em.merge(p);
+        
     }
     
     @Override
     public void crearCita(Cita c){
         em.persist(c);
+    }
+
+    @Override
+    public List<Tratamiento> tratamientos(Integer nss) {
+      return em.createNamedQuery("Tratemiento.persona", Tratamiento.class).setParameter("nss", nss).getResultList();
     }
 }

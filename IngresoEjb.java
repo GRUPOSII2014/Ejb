@@ -24,4 +24,5 @@ public interface IngresoEjb {
     public void crearCita(Cita c);
     public List<Cama> todasCamasOcupadas();
     public void liberarCama(Integer pac);
+    public List<Tratamiento> tratamientos(Integer nss);
 }
