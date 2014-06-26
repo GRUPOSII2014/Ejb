@@ -102,7 +102,7 @@ public class IngresoImpl implements IngresoEjb {
         lista.add(inf);
         hist.setInformes(lista);
         p.setHistoriaclinica(hist);
-        em.persist(t);
+        em.merge(t);
         em.persist(inf);
         em.merge(hist);
         em.merge(p);
